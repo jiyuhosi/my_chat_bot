@@ -8,7 +8,7 @@ export const SignUpSchema = z.object({
             message: "Name can only contain English letters and numbers.",
         }),
     email: z.string().email({ message: "Please enter a valid email address." }),
-    password: z.string().min(4, { message: "Password must be at least 4 characters long." }),
+    password: z.string().min(4, { message: "Password must be at least 8 characters long." }),
     // .regex(/[A-Z]/, {
     //     message: "Password must contain at least one uppercase letter.",
     // })
