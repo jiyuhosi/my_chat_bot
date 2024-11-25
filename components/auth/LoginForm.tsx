@@ -1,20 +1,20 @@
 "use client";
-import { ChangeEvent, useActionState, useEffect } from "react";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { FormCard } from "./FormCard";
-import { Submit } from "./Submit";
+
 import { useFormValidate } from "@/hooks/useFormValidate";
-import { SignUpSchema } from "@/schemas/auth";
-import { TSignUpFormError } from "@/types/form";
-import { FormMessage } from "./FormMessage";
-
-import { signUp } from "@/actions/signup";
+import { ChangeEvent, useActionState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { FormCard } from "./FormCard";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { FormMessage } from "./FormMessage";
+import { Submit } from "./Submit";
+import { TLoginFormError } from "@/types/form";
+import { LoginSchema } from "@/schemas/auth";
+import { login } from "@/actions/login";
 
-export function SignUpForm() {
-    const [error, action] = useActionState(signUp, undefined);
-    const { errors, validateField } = useFormValidate<TSignUpFormError>(SignUpSchema);
+export function LoginForm() {
+    const [error, action] = useActionState(login, undefined);
+    const { errors, validateField } = useFormValidate<TLoginFormError>(LoginSchema);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -28,20 +28,8 @@ export function SignUpForm() {
     }, [error]);
 
     return (
-        <FormCard title="Sign Up" footer={{ label: "Already have an account?", href: "/login" }}>
+        <FormCard title="Login" footer={{ label: "Don't have an account yet?", href: "/signup" }}>
             <form action={action} className="space-y-6">
-                {/* Name */}
-                <div className="space-y-1">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                        id="name"
-                        name="name"
-                        placeholder="Enter your name"
-                        error={!!errors?.name}
-                        onChange={handleChange}
-                    />
-                    {errors?.name && <FormMessage message={errors?.name[0]} />}
-                </div>
                 {/* Email */}
                 <div className="space-y-1">
                     <Label htmlFor="email">Email</Label>
@@ -68,7 +56,7 @@ export function SignUpForm() {
                     />
                     {errors?.password && <FormMessage message={errors?.password[0]} />}
                 </div>
-                <Submit className="w-full">Sign Up</Submit>
+                <Submit className="w-full">Login</Submit>
             </form>
         </FormCard>
     );

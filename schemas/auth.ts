@@ -3,33 +3,31 @@ import { z } from "zod";
 export const SignUpSchema = z.object({
     name: z
         .string()
-        .min(1, { message: "이름을 입력해주세요." })
-        .regex(/^[a-zA-Zㄱ-ㅎ가-힣]+$/, {
-            message: "이름은 문자만 입력할 수 있습니다.",
+        .min(1, { message: "Please enter your name." })
+        .regex(/^[a-zA-Z0-9]+$/, {
+            message: "Name can only contain English letters and numbers.",
         }),
-    email: z.string().email({ message: "올바른 이메일 형식을 입력해주세요." }),
-    password: z
-        .string()
-        .min(8, { message: "패스워드는 최소 8자 이상이어야 합니다." })
-        .regex(/[A-Z]/, {
-            message: "패스워드는 최소 1개 이상의 대문자를 포함해야 합니다.",
-        })
-        .regex(/[a-z]/, {
-            message: "패스워드는 최소 1개 이상의 소문자를 포함해야 합니다.",
-        })
-        .regex(/[0-9]/, {
-            message: "패스워드는 최소 1개 이상의 숫자를 포함해야 합니다.",
-        })
-        .regex(/[\W_]/, {
-            message: "패스워드는 최소 1개 이상의 특수문자를 포함해야 합니다.",
-        }),
+    email: z.string().email({ message: "Please enter a valid email address." }),
+    password: z.string().min(4, { message: "Password must be at least 4 characters long." }),
+    // .regex(/[A-Z]/, {
+    //     message: "Password must contain at least one uppercase letter.",
+    // })
+    // .regex(/[a-z]/, {
+    //     message: "Password must contain at least one lowercase letter.",
+    // })
+    // .regex(/[0-9]/, {
+    //     message: "Password must contain at least one number.",
+    // })
+    // .regex(/[\W_]/, {
+    //     message: "Password must contain at least one special character.",
+    // }),
 });
 
 export const LoginSchema = z.object({
     email: z.string().email({
-        message: "올바른 이메일 형식을 입력해주세요.",
+        message: "Please enter a valid email address.",
     }),
     password: z.string().min(1, {
-        message: "패스워드를 입력해주세요.",
+        message: "Please enter your password.",
     }),
 });
